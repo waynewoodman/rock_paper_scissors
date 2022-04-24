@@ -13,7 +13,7 @@ class Player:
     def move(self):
         return 'rock'
 
-    def learn(self, my_move, their_move):
+    def learn(self, my_move, computer_move):
         pass
 
 
