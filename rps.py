@@ -25,12 +25,12 @@ class Player:
 
     def beats(player_decision, computer_decision):
         if player_decision != computer_decision:
-            return ((player_decision == 'rock' and computer_decision ==
-                     'scissors')
+            return ((player_decision == 'rock' and computer_decision
+                     == 'scissors')
                     or (player_decision == 'scissors' and computer_decision
                     == 'paper')
-                    or (player_decision == 'paper' and computer_decision ==
-                    'rock'))
+                    or (player_decision == 'paper' and computer_decision
+                    == 'rock'))
         else:
             return 2
 
@@ -99,7 +99,7 @@ class Game:
     def play_game(self):
         print_pause("Rock, Paper, Scissors, lets play!")
         total_rounds = input("Please state how many games you would like to "
-                             " play?\n")
+                             "play?\n")
         try:
             print_pause("\nGreat, lets go!")
             for round in range(int(total_rounds)):
