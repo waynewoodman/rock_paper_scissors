@@ -10,21 +10,40 @@ in this game"""
 
 
 class Player:
-    def move(self):
-        return 'rock'
+    def __init__(self):
+        self.moves = ["rock", "paper", "scissors"]
+        self.count = 0
+        self.computer_move = ""
 
     def learn(self, my_move, computer_move):
-        pass
+        self.computer_move = computer_move
+        self.my_move = my_move
 
+    def beats(one, two):
+        return ((one == 'rock' and two == 'scissors')
+                or (one == 'scissors' and two == 'paper')
+                or (one == 'paper' and two == 'rock'))
 
-def beats(one, two):
-    return ((one == 'rock' and two == 'scissors')
-            or (one == 'scissors' and two == 'paper')
-            or (one == 'paper' and two == 'rock'))
+class HumanPlayer(Player):
+    def move(self, rounds):
+        self.select_move = input("Rock, paper, scissors?\n").lower()
+        for options in self.moves:
+            if self.select_move in self.moves:
+                return self.select_move
+            else:
+                self.move(rounds)
+
+class ReflectPlayer(Player):
+    def move(self, rounds):
+        if rounds == 1:
+            return random.choice(self, rounds)
+        else:
+            return self.computer_move
 
 
 class RandomPlayer():
-    def move(self)
+    def move(self, rounds):
+        return random.choice(self.moves)
 
 
 class Game:
@@ -42,6 +61,8 @@ class Game:
                 return
 
     def play_round(self):
+        self.game_count += 1
+        games = self.game_count
         move1 = self.p1.move()
         move2 = self.p2.move()
         print(f"Player 1: {move1}  Player 2: {move2}")
