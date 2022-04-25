@@ -1,12 +1,12 @@
-#!/usr/bin/env python3
+import random
+import time
 
-"""This program plays a game of Rock, Paper, Scissors between two Players,
-and reports both Player's scores each round."""
+moves = ['rock', 'paper', 'scissors']
 
-# moves = ['rock', 'paper', 'scissors']
 
-"""The Player class is the parent class for all of the Players
-in this game"""
+def print_pause(message_display):
+    print(message_display)
+    time.sleep(1)
 
 
 class Player:
@@ -14,6 +14,10 @@ class Player:
         self.moves = ["rock", "paper", "scissors"]
         self.count = 0
         self.computer_move = ""
+        self.my_move = ""
+
+    def move(self, move):
+        return 'rock'
 
     def learn(self, my_move, computer_move):
         self.computer_move = computer_move
@@ -27,6 +31,8 @@ class Player:
                     == 'paper')
                     or (player_decision == 'paper' and computer_decision ==
                     'rock'))
+        else:
+            return 2
 
 
 class HumanPlayer(Player):
@@ -42,12 +48,12 @@ class HumanPlayer(Player):
 class ReflectPlayer(Player):
     def move(self, rounds):
         if rounds == 1:
-            return random.choice(self, rounds)
+            return RandomPlayer.choice(self, rounds)
         else:
             return self.computer_move
 
 
-class RandomPlayer():
+class RandomPlayer(Player):
     def move(self, rounds):
         return random.choice(self.moves)
 
@@ -61,43 +67,60 @@ class CyclePlayer(Player):
         else:
             return self.moves[index]
 
-            class Game:
-            def __init__(self, p1, p2):
-            self.p1 = p1
-            self.p2 = p2
-            self.game_count = 0
 
-            def track_score(self, move1, move2):
-            score = Player.beats(move1, move2)
-            if score == 1:
+class Game:
+    def __init__(self, p1, p2):
+        self.p1 = p1
+        self.p2 = p2
+        self.game_count = 0
+
+    def track_score(self, move1, move2):
+        score = Player.beats(move1, move2)
+        if score == 1:
             self.p1.count += 1
-            elif score == 0:
+        elif score == 0:
             self.p2.count += 1
-            else:
+        else:
             return
-            print("\tScore: " + str(self.p1.count) + " _ "
-                  + str(self.p2.count))
+        print_pause("\tScore: " + str(self.p1.count) + " _ "
+                    + str(self.p2.count))
 
-            def play_round(self):
-            self.game_count += 1
-            games = self.game_count
-            move1 = self.p1.move()
-            move2 = self.p2.move()
-            print(f"Player 1: {move1}  Player 2: {move2}")
-            self.track_score(move1, move2)
-            self.p1.learn(move1, move2)
-            self.p2.learn(move2, move1)
+    def play_round(self):
+        self.game_count += 1
+        rounds = self.game_count
+        print_pause(f"\nRound {rounds}:")
+        move1 = self.p1.move(rounds)
+        move2 = self.p2.move(rounds)
+        print_pause(f"Player 1: {move1}  Player 2: {move2}")
+        self.track_score(move1, move2)
+        self.p1.learn(move1, move2)
+        self.p2.learn(move2, move1)
 
-            def play_game(self):
-            print("Game start!")
-            for round in range(3):
-            print(f"Round {round}:")
-            self.play_round()
-            print("Game over!")
-
-            if __name__ == '__main__':
-            computer_classes = (Player(), RandomPlayer(), ReflectPlayer(),
-                                CyclePlayer())
-            computer_player = random.choice(computer_classes)
-            game = Game(HumanPlayer(), computer_player)
+    def play_game(self):
+        print_pause("Rock, Paper, Scissors, lets play!")
+        total_rounds = input("Please state how many games you would like to "
+                             " play?\n")
+        try:
+            print_pause("\nGreat, lets go!")
+            for round in range(int(total_rounds)):
+                self.play_round()
+            self.winner()
+            print_pause("Game, set, match!")
+        except ValueError:
             game.play_game()
+
+    def winner(self):
+        if self.p1.count > self.p2.count:
+            print_pause("Player wins!")
+        elif self.p1.count < self.p2.count:
+            print_pause("Computer wins!")
+        else:
+            print_pause("Its a tie :)")
+
+
+if __name__ == '__main__':
+    computer_classes = (Player(), RandomPlayer(), ReflectPlayer(),
+                        CyclePlayer())
+    computer_player = random.choice(computer_classes)
+    game = Game(HumanPlayer(), computer_player)
+    game.play_game()
