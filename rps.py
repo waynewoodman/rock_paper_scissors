@@ -23,15 +23,29 @@ def beats(one, two):
             or (one == 'paper' and two == 'rock'))
 
 
+class RandomPlayer():
+    def move(self)
+
+
 class Game:
     def __init__(self, p1, p2):
         self.p1 = p1
         self.p2 = p2
 
+    def track_score(self):
+        score = Player.beats(move1, move2):
+            if score == 1:
+                self.p1.count+= 1
+            elif: score == 0:
+                self.p2.count += 1
+            else:
+                return
+
     def play_round(self):
         move1 = self.p1.move()
         move2 = self.p2.move()
         print(f"Player 1: {move1}  Player 2: {move2}")
+        self.track_score(move1, move2)
         self.p1.learn(move1, move2)
         self.p2.learn(move2, move1)
 
