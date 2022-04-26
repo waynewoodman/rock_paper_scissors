@@ -1,8 +1,6 @@
 import random
 import time
 
-moves = ['rock', 'paper', 'scissors']
-
 
 def print_pause(message_display):
     print(message_display)
@@ -10,14 +8,16 @@ def print_pause(message_display):
 
 
 class Player:
+    moves = ['rock', 'paper', 'scissors']
+
     def __init__(self):
         self.moves = ["rock", "paper", "scissors"]
         self.count = 0
-        self.computer_move = ""
+        self.computer_move = random.choice(self.moves)
         self.my_move = ""
 
-    def move(self, move):
-        return 'rock'
+    # def move(self, move):
+    #     return 'rock'
 
     def learn(self, my_move, computer_move):
         self.computer_move = computer_move
@@ -47,10 +47,10 @@ class HumanPlayer(Player):
 
 class ReflectPlayer(Player):
     def move(self, rounds):
-        if rounds == 1:
-            return RandomPlayer.choice(self, rounds)
-        else:
-            return self.computer_move
+        # if rounds == 1:
+        #     return RandomPlayer.choice(self, rounds)
+        # else:
+        return self.computer_move
 
 
 class RandomPlayer(Player):
@@ -105,6 +105,8 @@ class Game:
             for round in range(int(total_rounds)):
                 self.play_round()
             self.winner()
+            print_pause("\tFinal Score: " + str(self.p1.count) + " _ "
+                        + str(self.p2.count))
             print_pause("Game, set, match!")
         except ValueError:
             game.play_game()
@@ -122,5 +124,6 @@ if __name__ == '__main__':
     computer_classes = (Player(), RandomPlayer(), ReflectPlayer(),
                         CyclePlayer())
     computer_player = random.choice(computer_classes)
-    game = Game(HumanPlayer(), computer_player)
+    game = Game(HumanPlayer(), random.choice([RandomPlayer(), ReflectPlayer(),
+                                              CyclePlayer()]))
     game.play_game()
