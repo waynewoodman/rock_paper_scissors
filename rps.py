@@ -11,7 +11,6 @@ class Player:
     moves = ['rock', 'paper', 'scissors']
 
     def __init__(self):
-        # self.moves = ["rock", "paper", "scissors"]
         self.count = 0
         self.computer_move = random.choice(self.moves)
 
@@ -114,9 +113,6 @@ class Game:
 
 
 if __name__ == '__main__':
-    # computer_classes = (Player(), RandomPlayer(), ReflectPlayer(),
-    #                     CyclePlayer())
-    # computer_player = random.choice(computer_classes)
     game = Game(HumanPlayer(), random.choice([RandomPlayer(), ReflectPlayer(),
                                               CyclePlayer()]))
     game.play_game()
