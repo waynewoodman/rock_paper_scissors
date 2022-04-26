@@ -12,8 +12,11 @@ class Player:
 
     def __init__(self):
         self.count = 0
-        self.computer_move = random.choice(self.moves)
+        self.computer_move = ""
         self.my_move = self.moves
+
+    def move(self, rounds):
+        return "rock"
 
     def learn(self, my_move, computer_move):
         self.computer_move = computer_move
@@ -39,11 +42,6 @@ class HumanPlayer(Player):
                 return self.select_move
             else:
                 self.move(rounds)
-
-
-class RepeatPlayer(Player):
-    def move(self, rounds):
-        return "Rock"
 
 
 class ReflectPlayer(Player):
@@ -119,6 +117,8 @@ class Game:
 
 
 if __name__ == '__main__':
-    game = Game(HumanPlayer(), random.choice([RandomPlayer(), ReflectPlayer(),
-                                              CyclePlayer(), RepeatPlayer()]))
+    player_classes = (Player(), RandomPlayer(), ReflectPlayer(),
+                      CyclePlayer())
+    computer_player = random.choice(player_classes)
+    game = Game(HumanPlayer(), computer_player)
     game.play_game()
