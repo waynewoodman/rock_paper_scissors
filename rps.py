@@ -14,10 +14,6 @@ class Player:
         self.moves = ["rock", "paper", "scissors"]
         self.count = 0
         self.computer_move = random.choice(self.moves)
-        self.my_move = ""
-
-    # def move(self, move):
-    #     return 'rock'
 
     def learn(self, my_move, computer_move):
         self.computer_move = computer_move
@@ -47,9 +43,6 @@ class HumanPlayer(Player):
 
 class ReflectPlayer(Player):
     def move(self, rounds):
-        # if rounds == 1:
-        #     return RandomPlayer.choice(self, rounds)
-        # else:
         return self.computer_move
 
 
