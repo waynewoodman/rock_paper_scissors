@@ -57,11 +57,8 @@ class RandomPlayer(Player):
 class CyclePlayer(Player):
     def move(self, rounds):
         index = (rounds - 1) % 3
-        if index == 0:
-            random.shuffle(self.moves)
-            return self.moves[index]
-        else:
-            return self.moves[index]
+        index == 0
+        return self.moves[index]
 
 
 class Game:
@@ -119,6 +116,7 @@ class Game:
 if __name__ == '__main__':
     player_classes = (Player(), RandomPlayer(), ReflectPlayer(),
                       CyclePlayer())
+
     computer_player = random.choice(player_classes)
     game = Game(HumanPlayer(), computer_player)
     game.play_game()
